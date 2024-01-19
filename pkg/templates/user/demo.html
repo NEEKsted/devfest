@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select name="state" id="state">
+        <option value="">select</option>
+        {% for state in states %}
+        <option value="{{state.state_id}}">{{state.state_name}}</option>
+        {%endfor  %}
+    </select>
+
+    <select name="lga" id="lga"></select>
+    <button type="button">Send</button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#state').change(function(){
+                var stateId = $(this).val()
+                var crsf = "{{csrf_token}}"
+                $.ajax({
+                    url:'/lga/get/',
+                    type:'POST',
+                    data:{"state_id":stateId,'csrf_toke':csrf},
+                    success:function(){resp}
+                })
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+
+{% extends 'user/home_layout.html' %}
+
+{% block content %}
+
+   <div class="content">
+    
+
+
+    <div class="row g-5">
+      {% set m = get_flashed_messages(with_categories=True) %}
+      {% if m %}
+        {% for cat,msg in m %}
+          {% if cat=='error' %}
+            <div class="alert alert-danger">{{msg}}</div>
+            {% else %}
+            <div class="alert alert-info">{{msg}}</div>
+            {% endif %}
+        {% endfor %}
+      {% endif %}
+    <div class="col-md-12">
+      <h3 class="pb-4 mb-4 fst-italic border-bottom">
+      Register for Breakout Sessions
+      </h3>
+      {{topics}}
+      {{deets}}
+      {{regtopics}}
+      
+      {% if topics: %}
+      <form method="post" action="/breakout">
+    <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th scope="col"> <input class="form-check-input border-dark" type="checkbox" value="" id="all"> </th>
+            <th scope="col">Title</th>
+            <th scope="col">Category</th>
+           
+          </tr>
+        </thead>
+        
+        
+        <tbody>
+          {% for t in topics %}
+          <tr>
+           
+          
+            <td> {% if t.break_id in regtopics %}
+              <input class="form-check-input border-dark" name="topicid" type="checkbox" value="{{t.break_id}}" id="" checked>
+              {% else %}
+              <input class="form-check-input border-dark" name="topicid" type="checkbox" value="{{t.break_id}}" id="all">
+              {% endif %}
+  </td>
+            <td> {{t.break_title}} </td>
+            <td>{{t.breakleveldeets.level_name}}</td>
+          
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+
+<div class="row">
+    <div class="col-md-11">
+        <div style="text-align:right">
+            <button class="btn custom-btn noround">Cancel</button>
+
+            <button class="btn btn-dark noround">Continue</button>
+            <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+         </div>
+    </div>
+</div>
+
+  </form>
+ {% else %}
+      <div class="alert">No breakout topic found, in your level</div>
+      {% endif %}
+       
+     
+
+
+    </div>
+  </div>
+   </div>
+  </div>
+ 
+  {% endblock content %}
+
+  {% block breakout %}{% endblock %}
+{% block conversation %}{% endblock %}
+{% block partner %}{% endblock %}

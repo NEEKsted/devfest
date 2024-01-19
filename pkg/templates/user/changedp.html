@@ -1,0 +1,40 @@
+{% extends 'user/home_layout.html' %}
+
+
+{% block content %}
+
+<div class="content" style="background-color: white;padding:3em">
+    <h3>Change Your Profile Picture</h3>
+{% set m = get_flashed_messages(with_categories=True) %}
+{% if m %}
+  {% for cat,msg in m %}
+    {% if cat=='error' %}
+      <div class="alert alert-danger">{{msg}}</div>
+      {% else %}
+      <div class="alert alert-info">{{msg}}</div>
+      {% endif %}
+  {% endfor %}
+{% endif %}
+  <form enctype="multipart/form-data" method="post">
+   
+  <div class="mb-3">
+      <label for="dp">Upload a Profile Picture</label>
+      <input id="dp" name="dp" required type="file">
+  
+  </div>
+  <div class="mb-3"> 
+    <input class="btn btn-dark noround" id="btnupload" name="btnupload" type="submit" value="Upload Picture">
+    
+  </div>
+  <input type="hidden" name="'csrf_token" value="{{csrf_token()}}">
+  </form></div>
+
+  </div>
+
+  {% endblock content %}
+
+  {% block breakout %}{% endblock %}
+  {% block conversation %}{% endblock %}
+  {% block partner %}{% endblock %}
+    
+  

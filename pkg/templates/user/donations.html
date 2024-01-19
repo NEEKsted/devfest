@@ -1,0 +1,38 @@
+{%extends 'user/home_layout.html'%}
+
+{% block content %}
+     
+<div class="content" style="background-color: white;padding:3em">
+
+    
+    
+        <form action="" method="post">
+           
+            <h2>Donation Form: Thank you!</h2>
+            <p>Kindly complete the form below with the amount you want to donate. Click on the button and it will take you to a page where you will input your card details...</p>
+            <div class="mb-3">
+                <label><label for="fullname">Fullname</label></label>
+                <input class="form-control border-success noround" id="fullname" name="fullname" required type="text" value="{{deets.user_fname}}{{deets.user_lname}}">           
+            </div>
+            <div class="mb-3">
+                <label><label for="email">Email</label></label>
+                <input class="form-control border-success noround" id="email" name="email" required type="text" value="{{deets.user_email}}">
+            </div>
+            <div class="mb-3">
+                <label><label for="amt">Specify Amount</label></label>
+                <input class="form-control border-success noround" id="amt" name="amt" required type="text" value="{{deets.donate_amt}}">          
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-lg btn-dark noround col-12" id="btnsubmit" name="btnsubmit" type="submit" value="Continue"> 
+                <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    
+            </div>
+        </form>
+    </div>
+
+
+  </div>
+
+ 
+
+{% endblock %}

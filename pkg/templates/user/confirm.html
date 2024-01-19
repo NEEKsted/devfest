@@ -1,0 +1,59 @@
+{% extends 'user/home_layout.html' %}
+
+{% block customcss %}
+style='background-color:white'
+ {% endblock customcss %}
+
+{% block content %}
+<div class="content">
+  <h3>Welcome! {{deets.user_fname|title}}</h3>
+  {% set m = get_flashed_messages(with_categories=True) %}
+{% if m %}
+  {% for cat,msg in m %}
+    {% if cat=='error' %}
+      <div class="alert alert-danger">{{msg}}</div>
+      {% else %}
+      <div class="alert alert-info">{{msg}}</div>
+      {% endif %}
+  {% endfor %}
+{% endif %}
+  <h4>Payment Confirmation Page</h4>
+  <div class="row justify-content-around">
+    <div class="col-5">
+        <form action="/topaystack/">
+            <table class="table table-striped alert alert-info">
+                <tr>
+                    <td>Donor</td>
+                    <td>{{ donation_deets.donate_donor}}</td>
+                </tr>
+                <tr>
+                    <td>Donation Amount</td>
+                    <td>{{donation_deets.donate_amt}}</td>
+                </tr>
+                <tr>
+                    <td>Donor Email</td>
+                    <td>{{donation_deets.donate_email}}</td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>{{donation_deets.donate_status}}</td>
+                </tr>
+                <tr>
+                        <td>REF</td>
+                        <td>{{donation_deets.donate_ref}}</td>
+                    </tr>
+                </table>
+       <input type="submit" class="btn btn-info form-control" name="" placeholder="Confirm Payment">
+  <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+</form>
+    </div>
+  </div>
+  
+  
+  <p>This is your dashboard, please use the second-level menu to carry out tasks</p>
+ </div>
+ {% endblock content %}
+
+
+ {% block breakout %} {% endblock %}
+ {% block conversation %} {% endblock %}
